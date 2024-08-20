@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prototipo-Color-Car</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>Detección de Patrones de Color en Autos</h1>
+    </header>
+
+    <main>
+        <form id="filterForm">
+            <label for="carBrand">Marca de Auto:</label>
+            <select id="carBrand" name="carBrand">
+                <option value="Toyota">Toyota</option>
+                <option value="Ford">Ford</option>
+                <option value="BMW">BMW</option>
+                
+            </select>
+
+            <label for="carType">Tipo de Auto:</label>
+            <select id="carType" name="carType">
+                <option value="Sedan">Sedan</option>
+                <option value="SUV">SUV</option>
+                <option value="Hatchback">Hatchback</option>
+                
+            </select>
+
+            <label for="colorBrand">Marca de Color:</label>
+            <select id="colorBrand" name="colorBrand">
+                <option value="PPG">PPG</option>
+                <option value="BASF">BASF</option>
+                <option value="Axalta">Axalta</option>
+                
+            </select>
+
+            <label for="carImage">Subir Foto del Auto:</label>
+            <input type="file" id="carImage" name="carImage" accept="image/*">
+
+            <button type="submit">Scanear</button>
+        </form>
+        <section id="results">
+        </section>
+    </main>
+
+    <script src="scripts.js"></script>
+</body>
+</html>
