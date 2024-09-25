@@ -1,0 +1,103 @@
+/* Estilos generales */
+body {
+	font-family: Arial, sans-serif;
+	font-size: 16px;
+	background-color: #F2F2F2;
+	color: #333;
+}
+
+h2 {
+	text-align: center;
+	font-size: 36px;
+	margin: 30px 0;
+	color: #444;
+}
+
+form {
+	max-width: 500px;
+	margin: 0 auto;
+	background-color: #fff;
+	padding: 40px;
+	box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
+	border-radius: 5px;
+}
+
+label {
+	display: block;
+	font-size: 18px;
+	margin-bottom: 10px;
+	color: #444;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"] {
+	display: block;
+	width: 100%;
+	padding: 10px;
+	font-size: 16px;
+	border: none;
+	border-radius: 5px;
+	background-color: #F2F2F2;
+	margin-bottom: 20px;
+	box-shadow: inset 0px 0px 3px rgba(0, 0, 0, 0.1);
+	color: #333;
+}
+
+button[type="submit"] {
+	display: block;
+	margin: 20px auto 0;
+	padding: 10px 20px;
+	font-size: 20px;
+	color: #fff;
+	background-color: #FFC107;
+	border: none;
+	border-radius: 5px;
+	box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.3);
+	cursor: pointer;
+}
+
+button[type="submit"]:hover {
+	background-color: #F57F17;
+}
+
+a {
+	color: #333;
+}
+
+a:hover {
+	color: #444;
+}
+
+p {
+	margin-top: 20px;
+	font-size: 18px;
+	text-align: center;
+}
+
+/* Estilos específicos del formulario de registro */
+#username:focus,
+#email:focus,
+#password:focus,
+#password_confirm:focus {
+	background-color: #fff;
+	box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.3);
+}
+
+#username:invalid,
+#email:invalid,
+#password:invalid,
+#password_confirm:invalid {
+	border-color: #F44336;
+}
+
+#username:valid,
+#email:valid,
+#password:valid,
+#password_confirm:valid {
+	border-color: #4CAF50;
+}
+
+#password_confirm {
+	margin-bottom: 40px;
+}

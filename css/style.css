@@ -1,0 +1,297 @@
+
+
+/* Estilos compartidos */
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+}
+
+/* Estilos específicos para la página de login */
+.login-page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.login-container {
+    display: flex;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.login-logo {
+    background-color: #f0f0f0;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.login-logo img {
+    max-width: 200px;
+}
+
+.login-form {
+    padding: 40px;
+    flex-grow: 1;
+}
+
+.input-group {
+    margin-bottom: 20px;
+}
+
+.input-group label {
+    display: flex;
+    align-items: center;
+    border: 1px solid #ccc;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.input-group .icon {
+    margin-right: 10px;
+}
+
+.input-group input {
+    border: none;
+    outline: none;
+    flex-grow: 1;
+}
+
+.options {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.options label {
+    display: flex;
+    align-items: center;
+}
+
+.options a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+.options a:hover {
+    text-decoration: underline;
+}
+
+button {
+    width: 100%;
+    padding: 10px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+/* Estilos para la página principal */
+header {
+    width: 100%;
+    background-color: #ffffff;
+    color: #fff;
+    padding: 10px 20px;
+    text-align: center;
+    box-sizing: border-box;
+}
+
+main {
+    padding: 20px;
+}
+
+form {
+    margin-bottom: 20px;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+select {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+header img {
+    max-width: 100%; /* Asegura que la imagen no se salga del contenedor */
+    height: auto; /* Mantiene la proporción de la imagen */
+}
+
+#result {
+    padding: 20px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+/* Nuevos estilos agregados */
+
+/* Filtros */
+.filters {
+    background-color: #fff;
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.filter-group {
+    margin-bottom: 10px;
+}
+
+.filter-group label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 2px;
+}
+
+.filter-group input {
+    width: calc(100% - 20px);
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+/* Botones */
+button {
+    padding: 10px 20px;
+    background-color: #0400ff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-right: 10px;
+}
+
+button[type="reset"] {
+    background-color: #bdbdbd;
+}
+
+.form-buttons {
+    display: flex;
+    justify-content: space-between; /* Colocar los botones uno al lado del otro */
+}
+
+.form-buttons button {
+    flex: 1; /* Hacer que los botones ocupen el mismo espacio */
+    padding: 5px; /* Reducir el padding de los botones */
+    font-size: 14px; /* Ajustar el tamaño de la fuente */
+    margin-right: 5px; /* Separar los botones ligeramente */
+}
+
+.form-buttons button:last-child {
+    margin-right: 0; /* Eliminar margen derecho del último botón */
+}
+
+/* Resultados */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 10px 0;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    font-size: 14px;
+}
+
+table th, table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+table th, table td {
+    background-color: #f2f2f2;
+    font-weight: bold;
+    padding: 5px;
+}
+
+.fancy-file{
+    display: none;
+}
+
+.file-label {
+    display: inline-block;
+    padding: 10px;
+    background-color: #0400ff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-align: center;
+    margin-top: 10px;
+    font-size: 14px;
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: auto; /* Ajuste el ancho según el contenido */
+    max-width: 100%; /* Asegura que el botón no se desborde */
+    box-sizing: border-box; /* Incluye padding y borde en el ancho total */
+}
+
+
+.fancy-file:focus + .file-label,
+.file-label:hover {
+    background-color: #0056b3; /* Cambiar color al hacer hover o focus */
+}
+
+.fancy-file + label{
+    display: flex;
+    flex: 1;
+}
+.fancy-file__fancy-file-name,
+.fancy-file__fancy-file-button{
+    padding: 5px 10px;
+}
+
+.fancy-file__fancy-file-name{
+    background: #EEE;
+    border: 1px solid #CACACA;
+    flex: 1;
+    border-radius: 4px 0 0 4px;
+}
+
+.fancy-file__fancy-file-name span{
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 0px;
+    display: block;
+}
+
+.fancy-file__fancy-file-button{
+    background: #5BC0DE url(fancy-file/folder.png) 4px center/25px no-repeat;
+    border: 1px solid #5BC0DE;
+    color: white;
+    white-space: nowrap;
+    border-radius: 0 4px 4px 0;
+    padding-left: 33px;
+    cursor: pointer;
+}
+
+.fancy-file.red + label > .fancy-file__fancy-file-button{
+    background-color: #D9534F;
+    border-color:#D64641;
+}
+.fancy-file.green + label > .fancy-file__fancy-file-button{
+    background-color: #5CB85C;
+    border-color:#4FB04F;
+}

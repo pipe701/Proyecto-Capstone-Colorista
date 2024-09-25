@@ -1,0 +1,40 @@
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Yatu</title>
+    <link rel="stylesheet" href="css/login.css">
+</head>
+<body class="login-page">
+    <div class="login-container">
+        <div class="login-logo">
+            <img src="https://mix.yatupaint.com/Html/img/login_left_en.png" alt="Yatu Logo">
+        </div>
+        <div class="login-form">
+            <form id="loginForm">
+                <div class="input-group">
+                    <label for="emaillog">
+                        <span class="icon">📧</span>
+                        <input type="email" id="emaillog" name="email" placeholder="Correo electrónico" required>
+                    </label>
+                </div>
+                <div class="input-group">
+                    <label for="passwordlog">
+                        <span class="icon">🔒</span>
+                        <input type="password" id="passwordlog" name="password" placeholder="Contraseña" required>
+                    </label>
+                </div>
+                <div class="options">
+                    <label>
+                        <input type="checkbox" name="remember"> Guardar contraseña
+                    </label>
+                </div>
+                <button type="submit" id="login">Iniciar</button>
+            </form>
+            <div id="message" class="message"></div> 
+        </div>
+    </div>
+
+ 
+    <script type="module" src="/js/login.js"></script>
+</body>
+</html>
