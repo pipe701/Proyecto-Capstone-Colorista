@@ -1,29 +1,44 @@
-const create = str => document.createElement(str);
-const files = document.querySelectorAll('.fancy-file');
-Array.from(files).forEach(
-    f => {
-        const label = create('label');
-        const span_text = create('span');
-        const span_name =create('span');
+filterForm.addEventListener('submit', async function(event) {
+    event.preventDefault();
 
-        label.htmlFor = f.id;
+    const selectedBrand = carBrand.value;
+    const selectedType = carType.value;
+    const archivo = document.getElementById('archivo').files[0];
 
-        span_text.className = 'fancy-file__fancy-file-name';
-       
+    if (selectedBrand && selectedType && archivo) {
+        const formData = new FormData();
+        formData.append('carBrand', selectedBrand);
+        formData.append('carType', selectedType);
+        formData.append('archivo', archivo);
 
-        span_text.appendChild(span_name);
-        f.parentNode.appendChild(label);
+        try {
+            const response = await fetch('/api/scan', {
+                method: 'POST',
+                body: formData
+            });
 
-        span_name.style.width = (span_text.clientWidth - 20)+'px';
+            const result = await response.json();
 
-        f.addEventListener('change', e => {
-            if( f.files.length == 0 ){
-                span_name.innerHTML = f.dataset.empty ||'Ningún archivo seleccionado';
-            }else if( f.files.length > 1 ){
-                span_name.innerHTML = f.files.length + ' archivos seleccionados';
-            }else{
-                span_name.innerHTML = f.files[0].name;
+            // Limpiar tabla de resultados
+            resultTableBody.innerHTML = '';
+
+            // Agregar fila a la tabla
+            if (result) {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td><img src="${result.imagen}" alt="Color ${result.color}"></td>
+                    <td>${selectedBrand.charAt(0).toUpperCase() + selectedBrand.slice(1)}</td>
+                    <td>${result.codigo}</td>
+                    <td>${result.manos}</td>
+                    <td>${result.modelo}</td>
+                    <td>${result.nombre}</td>
+                `;
+                resultTableBody.appendChild(row);
             }
-        } );   
+        } catch (error) {
+            console.error('Error al escanear la imagen:', error);
+        }
+    } else {
+        alert("Por favor selecciona una marca, un modelo y sube una imagen.");
     }
-);
+});

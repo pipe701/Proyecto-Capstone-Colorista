@@ -1,68 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Prototipo-Color-Car</title>
     <link rel="stylesheet" href="css/style.css">
-
 </head>
 <body>
     <header>
         <img src="https://mix.yatupaint.com/Html/img/login_left_en.png" alt="Yatu Logo">
     </header>
-
-    <div>
-        <main>
-            <section class="filters">
-                <form id="filterForm">
-                    <div class="filter-group">
-                        <label for="carBrand">Marca de Auto:</label>
-                        <select id="carBrand" name="carBrand">
-                            <option value="">Selecciona una marca</option>
-                            <option value="toyota">Toyota</option>
-                            <option value="chevrolet">Chevrolet</option>
-                            <option value="nissan">Nissan</option>
-                            <option value="suzuki">Suzuki</option>
-                        </select>
-                    </div>
-
-                    <div class="filter-group">
-                        <label for="carType">Tipo de Auto:</label>
-                        <select id="carType" name="carType" disabled>
-                            <option value="">Selecciona un tipo</option>
-                        </select>
-                    </div>
-
-                    <div class="filter-group">
-                        <input type="file" id="archivo" name="avatar" accept="image/*" class="fancy-file">
-                        <label for="archivo" class="file-label">Subir Archivo</label>
-                    </div>
-
-                    <div class="form-buttons">
-                        <button type="submit" class="button">Escanear</button>
-                        <button type="reset" class="btn-small">Borrar</button>
-                    </div> 
-                </form>
-            </section>
-
-            <section id="results">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Color</th>
-                            <th>Marca</th>
-                            <th>Código de Color</th>
-                            <th>Manos</th>
-                            <th>Modelo</th>
-                            <th>Nombre del Color</th>
-                        </tr>
-                    </thead>
-                    <tbody id="resultTableBody">
-                        <!-- Resultados simulados aquí -->
-                    </tbody>
-                </table>
-            </section>
-        </main>
-    </div>
-    
+    <main>
+        <section class="filters">
+            <form id="filterForm" enctype="multipart/form-data">
+                <div class="filter-group">
+                    <label for="carBrand">Marca de Auto:</label>
+                    <select id="carBrand" name="carBrand">
+                        <option value="">Selecciona una marca</option>
+                        <option value="toyota">Toyota</option>
+                        <option value="chevrolet">Chevrolet</option>
+                        <option value="nissan">Nissan</option>
+                        <option value="suzuki">Suzuki</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label for="carType">Tipo de Auto:</label>
+                    <select id="carType" name="carType" disabled>
+                        <option value="">Selecciona un tipo</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <input type="file" id="archivo" name="archivo" accept="image/*" class="fancy-file">
+                    <label for="archivo" class="file-label">Subir Archivo</label>
+                </div>
+                <div class="form-buttons">
+                    <button type="submit" class="button">Escanear</button>
+                    <button type="reset" class="btn-small">Borrar</button>
+                </div>
+            </form>
+        </section>
+        <section id="results">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Color</th>
+                        <th>Marca</th>
+                        <th>Código de Color</th>
+                        <th>Nombre del color</th>
+                        <th>Modelo</th>
+                    </tr>
+                </thead>
+                <tbody id="resultTableBody"></tbody>
+            </table>
+        </section>
+        <div id="modal3D" style="display:none;">
+            <button onclick="closeModal()">Cerrar</button>
+            <div id="3dContainer" style="width:100%; height:600px;"></div>
+        </div>
+    </main>
     <script>
         const carBrand = document.getElementById('carBrand');
         const carType = document.getElementById('carType');
@@ -75,34 +70,6 @@
             nissan: ['Qashqai', 'Juke', 'Navara', 'X-Trail'],
             suzuki: ['Swift', 'Vitara', 'Ciaz', 'Jimny']
         };
-
-        const simulatedData = {
-            toyota: {
-                corolla: { color: 'Rojo', codigo: '#D7051D', manos: 2, modelo: 'Corolla', nombre: 'Red Flame',imagen: 'https://dummyimage.com/50x50/ff0000/ffffff' },
-                rav4: { color: 'Azul', codigo: '#051EB1', manos: 3, modelo: 'RAV4', nombre: 'Ocean Blue',imagen: 'https://dummyimage.com/50x50/0000ff/ffffff' },
-                hilux: { color: 'Blanco', codigo: '#FFFFFF', manos: 3, modelo: 'Hilux', nombre: 'Snow White',imagen: 'https://dummyimage.com/50x50/ffffff/000000' },
-                yaris: { color: 'Amarillo', codigo: '#FDFE1A', manos: 2, modelo: 'Yaris', nombre: 'Sunshine Yellow' ,imagen: 'https://dummyimage.com/50x50/ffff00/000000' }
-            },
-            chevrolet: {
-                cruze: { color: 'Blanco', codigo: '#FFFFFF', manos: 2, modelo: 'Cruze', nombre: 'Snow White'  ,imagen: 'https://dummyimage.com/50x50/ffffff/000000' },
-                tahoe: { color: 'Negro', codigo: '#000000', manos: 4, modelo: 'Tahoe', nombre: 'Midnight Black',imagen: 'https://dummyimage.com/50x50/000000/ffffff' },
-                tracker: { color: 'Verde', codigo: '#16EB31', manos: 2, modelo: 'Tracker', nombre: 'Forest Green' ,imagen: 'https://dummyimage.com/50x50/008000/ffffff' },
-                onix: { color: 'Gris', codigo: '#808080', manos: 2, modelo: 'Onix', nombre: 'Steel Gray',imagen: 'https://dummyimage.com/50x50/808080/ffffff' }
-            },
-            nissan: {
-                qashqai: { color: 'Verde', codigo: '#16EB31', manos: 2, modelo: 'Qashqai', nombre: 'Forest Green' ,imagen: 'https://dummyimage.com/50x50/008000/ffffff' },
-                juke: { color: 'Amarillo', codigo: '#FDFE1A', manos: 3, modelo: 'Juke', nombre: 'Sunshine Yellow' ,imagen: 'https://dummyimage.com/50x50/ffff00/000000' },
-                navara: { color: 'Gris', codigo: '#808080', manos: 3, modelo: 'Navara', nombre: 'Steel Gray'  ,imagen: 'https://dummyimage.com/50x50/808080/ffffff' },
-                xtrail: { color: 'Azul', codigo: '#051EB1', manos: 2, modelo: 'X-Trail', nombre: 'Sky Blue'   ,imagen: 'https://dummyimage.com/50x50/0000ff/ffffff' }
-            },
-            suzuki: {
-                swift: { color: 'Gris', codigo: '#808080', manos: 3, modelo: 'Swift', nombre: 'Steel Gray',imagen: 'https://dummyimage.com/50x50/808080/ffffff' },
-                vitara: { color: 'Azul', codigo: '#051EB1', manos: 2, modelo: 'Vitara', nombre: 'Sky Blue' ,imagen: 'https://dummyimage.com/50x50/0000ff/ffffff' },
-                ciaz: { color: 'Blanco', codigo: '#FFFFFF', manos: 2, modelo: 'Ciaz', nombre: 'Snow White' ,imagen: 'https://dummyimage.com/50x50/ffffff/000000' },
-                jimny: { color: 'Negro', codigo: '#000000', manos: 3, modelo: 'Jimny', nombre: 'Midnight Black' ,imagen: 'https://dummyimage.com/50x50/000000/ffffff' }
-            }
-        };
-
 
         // Actualiza el tipo de auto según la marca seleccionada
         carBrand.addEventListener('change', function() {
@@ -122,7 +89,7 @@
         });
 
         // Manejador del formulario de escaneo
-        filterForm.addEventListener('submit', function(event) {
+        filterForm.addEventListener('submit', async function(event) {
             event.preventDefault();
 
             const selectedBrand = carBrand.value;
@@ -130,28 +97,93 @@
             const archivo = document.getElementById('archivo').files[0];
 
             if (selectedBrand && selectedType && archivo) {
-                const result = simulatedData[selectedBrand][selectedType];
-                
-                // Limpiar tabla de resultados
-                resultTableBody.innerHTML = '';
+                const formData = new FormData();
+                formData.append('file', archivo);
+                formData.append('brand', selectedBrand);
+                formData.append('type', selectedType);
 
-                // Agregar fila a la tabla
-                if (result) {
-                    const row = document.createElement('tr');
-                    row.innerHTML = `
-                        <td><img src="${result.imagen}" alt="Color ${result.color}"></td>
-                        <td>${selectedBrand.charAt(0).toUpperCase() + selectedBrand.slice(1)}</td>
-                        <td>${result.codigo}</td>
-                        <td>${result.manos}</td>
-                        <td>${result.modelo}</td>
-                        <td>${result.nombre}</td>
-                    `;
-                    resultTableBody.appendChild(row);
+                try {
+                    // Realiza la solicitud a la API
+                    const response = await fetch('http://127.0.0.1:5000/predict', {
+                        method: 'POST',
+                        body: formData
+                    });
+
+                    if (!response.ok) {
+                        throw new Error('Error en la solicitud: ' + response.statusText);
+                    }
+
+                    const result = await response.json();
+
+                    // Actualiza la tabla de resultados con los datos devueltos por la API
+                    addResultToTable(result, archivo.name); // Pasar el nombre del archivo
+                } catch (error) {
+                    console.error('Error:', error);
+                    alert("Hubo un problema al escanear la imagen.");
                 }
             } else {
                 alert("Por favor selecciona una marca, un modelo y sube una imagen.");
             }
         });
+
+        function openModal() {
+            modal.style.display = 'block';
+            load3DModel();
+        }
+
+        function closeModal() {
+            modal.style.display = 'none';
+        }
+
+        function load3DModel() {
+            const scene = new THREE.Scene();
+            const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+            const renderer = new THREE.WebGLRenderer();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            document.getElementById('3dContainer').appendChild(renderer.domElement);
+
+            // Load the 3D car model
+            const loader = new THREE.GLTFLoader();
+            loader.load('path/to/car_model.gltf', function (gltf) {
+                const car = gltf.scene;
+                car.traverse(function (child) {
+                    if (child.isMesh) {
+                        child.material.color.set(0xff0000); // Aquí aplicas el color dinámico detectado
+                    }
+                });
+                scene.add(car);
+                camera.position.z = 5;
+                const animate = function () {
+                    requestAnimationFrame(animate);
+                    car.rotation.y += 0.01; // Rotar el modelo lentamente
+                    renderer.render(scene, camera);
+                };
+                animate();
+            });
+        }
+
+        function addResultToTable(result, uploadedImageName) {
+            // Limpiar tabla de resultados
+            resultTableBody.innerHTML = '';
+
+            // Extraer el código de color del nombre de la imagen sin la extensión
+            const colorCode = uploadedImageName.split('.').slice(0, -1).join('.'); // Obtener nombre sin .png
+
+            // Agregar fila a la tabla con los resultados
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td><img src="${URL.createObjectURL(document.getElementById('archivo').files[0])}" alt="Color ${result.predicted_color}" style="width:100px; height:auto;"></td>
+                <td>${carBrand.value || 'Desconocido'}</td>
+                <td>${colorCode}</td>
+                <td>${result.predicted_color || 'N/A'}</td>
+                <td>${carType.value || 'N/A'}</td>
+            `;
+            resultTableBody.appendChild(row);
+        }
     </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/examples/js/loaders/GLTFLoader.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/examples/js/controls/OrbitControls.js"></script>
 </body>
+</html>
 
