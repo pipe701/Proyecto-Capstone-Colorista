@@ -103,8 +103,8 @@
                 formData.append('type', selectedType);
 
                 try {
-                    // Actualiza aquí la URL a la API en Google Cloud Run
-                    const response = await fetch('https://api-color-322486590324.us-central1.run.app/predict', {
+                    // Realiza la solicitud a la API
+                    const response = await fetch('http://127.0.0.1:5000/predict', {
                         method: 'POST',
                         body: formData
                     });
@@ -186,3 +186,4 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/examples/js/controls/OrbitControls.js"></script>
 </body>
 </html>
+
