@@ -101,20 +101,19 @@
                 formData.append('type', selectedType);   // Asegúrate de que la API acepte estos parámetros
 
                 try {
-                    // Cambia la URL aquí
                     const response = await fetch('https://api-color.onrender.com/predict', {
                         method: 'POST',
                         body: formData
                     });
-
+                
                     if (!response.ok) {
                         throw new Error('Error en la solicitud: ' + response.statusText);
                     }
-
+                
                     const result = await response.json();
-                    addResultToTable(result, archivo.name);  // Asumiendo que el resultado contiene la información esperada
+                    addResultToTable(result, archivo.name); 
                 } catch (error) {
-                    console.error('Error:', error);
+                    console.error('Error:', error);  // Esto te dará más detalles sobre el error
                     alert("Hubo un problema al escanear la imagen.");
                 }
             } else {
