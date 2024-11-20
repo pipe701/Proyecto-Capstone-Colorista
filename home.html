@@ -71,7 +71,6 @@
             suzuki: ['Swift', 'Vitara', 'Ciaz', 'Jimny']
         };
 
-        // Actualiza el tipo de auto según la marca seleccionada
         carBrand.addEventListener('change', function() {
             const selectedBrand = carBrand.value;
             carType.innerHTML = '<option value="">Selecciona un tipo</option>';
@@ -88,7 +87,6 @@
             }
         });
 
-        // Manejador del formulario de escaneo
         filterForm.addEventListener('submit', async function(event) {
             event.preventDefault();
 
@@ -99,12 +97,12 @@
             if (selectedBrand && selectedType && archivo) {
                 const formData = new FormData();
                 formData.append('file', archivo);
-                formData.append('brand', selectedBrand);
-                formData.append('type', selectedType);
+                formData.append('brand', selectedBrand);  // Asegúrate de que la API acepte estos parámetros
+                formData.append('type', selectedType);   // Asegúrate de que la API acepte estos parámetros
 
                 try {
-                    // Realiza la solicitud a la API
-                    const response = await fetch('http://127.0.0.1:5000/predict', {
+                    // Cambia la URL aquí
+                    const response = await fetch('https://api-color.onrender.com/predict', {
                         method: 'POST',
                         body: formData
                     });
@@ -114,9 +112,7 @@
                     }
 
                     const result = await response.json();
-
-                    // Actualiza la tabla de resultados con los datos devueltos por la API
-                    addResultToTable(result, archivo.name); // Pasar el nombre del archivo
+                    addResultToTable(result, archivo.name);  // Asumiendo que el resultado contiene la información esperada
                 } catch (error) {
                     console.error('Error:', error);
                     alert("Hubo un problema al escanear la imagen.");
@@ -142,7 +138,6 @@
             renderer.setSize(window.innerWidth, window.innerHeight);
             document.getElementById('3dContainer').appendChild(renderer.domElement);
 
-            // Load the 3D car model
             const loader = new THREE.GLTFLoader();
             loader.load('path/to/car_model.gltf', function (gltf) {
                 const car = gltf.scene;
@@ -155,7 +150,7 @@
                 camera.position.z = 5;
                 const animate = function () {
                     requestAnimationFrame(animate);
-                    car.rotation.y += 0.01; // Rotar el modelo lentamente
+                    car.rotation.y += 0.01;
                     renderer.render(scene, camera);
                 };
                 animate();
@@ -163,18 +158,12 @@
         }
 
         function addResultToTable(result, uploadedImageName) {
-            // Limpiar tabla de resultados
             resultTableBody.innerHTML = '';
-
-            // Extraer el código de color del nombre de la imagen sin la extensión
-            const colorCode = uploadedImageName.split('.').slice(0, -1).join('.'); // Obtener nombre sin .png
-
-            // Agregar fila a la tabla con los resultados
             const row = document.createElement('tr');
             row.innerHTML = `
                 <td><img src="${URL.createObjectURL(document.getElementById('archivo').files[0])}" alt="Color ${result.predicted_color}" style="width:100px; height:auto;"></td>
                 <td>${carBrand.value || 'Desconocido'}</td>
-                <td>${colorCode}</td>
+                <td>${uploadedImageName.split('.').slice(0, -1).join('.')}</td>
                 <td>${result.predicted_color || 'N/A'}</td>
                 <td>${carType.value || 'N/A'}</td>
             `;
@@ -183,7 +172,6 @@
     </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/examples/js/loaders/GLTFLoader.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/examples/js/controls/OrbitControls.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 </body>
 </html>
-
