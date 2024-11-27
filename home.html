@@ -59,18 +59,20 @@
         </div>
     </main>
     <script>
+        // Obtener elementos necesarios
         const carBrand = document.getElementById('carBrand');
         const carType = document.getElementById('carType');
         const filterForm = document.getElementById('filterForm');
-        const resultTableBody = document.getElementById('resultTableBody');
-
+    
+        // Opciones de tipos de autos
         const carOptions = {
             toyota: ['Corolla', 'RAV4', 'Hilux', 'Yaris'],
             chevrolet: ['Cruze', 'Tahoe', 'Tracker', 'Onix'],
             nissan: ['Qashqai', 'Juke', 'Navara', 'X-Trail'],
             suzuki: ['Swift', 'Vitara', 'Ciaz', 'Jimny']
         };
-
+    
+        // Actualizar los tipos de autos al cambiar la marca
         carBrand.addEventListener('change', function() {
             const selectedBrand = carBrand.value;
             carType.innerHTML = '<option value="">Selecciona un tipo</option>';
@@ -86,78 +88,45 @@
                 carType.disabled = true;
             }
         });
-
+    
+        // Manejar el envío del formulario
         filterForm.addEventListener('submit', async function(event) {
             event.preventDefault();
-
+    
             const selectedBrand = carBrand.value;
             const selectedType = carType.value;
             const archivo = document.getElementById('archivo').files[0];
-
+    
             if (selectedBrand && selectedType && archivo) {
                 const formData = new FormData();
                 formData.append('file', archivo);
-                formData.append('brand', selectedBrand);  // Asegúrate de que la API acepte estos parámetros
-                formData.append('type', selectedType);   // Asegúrate de que la API acepte estos parámetros
-
+                formData.append('brand', selectedBrand);
+                formData.append('type', selectedType);
+    
                 try {
                     const response = await fetch('https://api-color.onrender.com/predict', {
                         method: 'POST',
                         body: formData
                     });
-                
+    
                     if (!response.ok) {
                         throw new Error('Error en la solicitud: ' + response.statusText);
                     }
-                
+    
                     const result = await response.json();
-                    addResultToTable(result, archivo.name); 
+                    addResultToTable(result, archivo.name);
                 } catch (error) {
-                    console.error('Error:', error);  // Esto te dará más detalles sobre el error
+                    console.error('Error:', error);
                     alert("Hubo un problema al escanear la imagen.");
                 }
             } else {
                 alert("Por favor selecciona una marca, un modelo y sube una imagen.");
             }
         });
-
-        function openModal() {
-            modal.style.display = 'block';
-            load3DModel();
-        }
-
-        function closeModal() {
-            modal.style.display = 'none';
-        }
-
-        function load3DModel() {
-            const scene = new THREE.Scene();
-            const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-            const renderer = new THREE.WebGLRenderer();
-            renderer.setSize(window.innerWidth, window.innerHeight);
-            document.getElementById('3dContainer').appendChild(renderer.domElement);
-
-            const loader = new THREE.GLTFLoader();
-            loader.load('path/to/car_model.gltf', function (gltf) {
-                const car = gltf.scene;
-                car.traverse(function (child) {
-                    if (child.isMesh) {
-                        child.material.color.set(0xff0000); // Aquí aplicas el color dinámico detectado
-                    }
-                });
-                scene.add(car);
-                camera.position.z = 5;
-                const animate = function () {
-                    requestAnimationFrame(animate);
-                    car.rotation.y += 0.01;
-                    renderer.render(scene, camera);
-                };
-                animate();
-            });
-        }
-
+    
+        // Función para añadir resultados a la tabla
         function addResultToTable(result, uploadedImageName) {
-            resultTableBody.innerHTML = '';
+            const resultTableBody = document.getElementById('resultTableBody');
             const row = document.createElement('tr');
             row.innerHTML = `
                 <td><img src="${URL.createObjectURL(document.getElementById('archivo').files[0])}" alt="Color ${result.predicted_color}" style="width:100px; height:auto;"></td>
@@ -168,9 +137,16 @@
             `;
             resultTableBody.appendChild(row);
         }
+    
+        // Manejar el reinicio del formulario y recargar la página
+        filterForm.addEventListener('reset', function() {
+            location.reload(); // Recargar la página
+        });
     </script>
+    
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/examples/js/loaders/GLTFLoader.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 </body>
 </html>
+
