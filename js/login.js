@@ -23,27 +23,51 @@ loginButton.addEventListener('click', (e) => {
     const email = document.getElementById('emaillog').value;
     const password = document.getElementById('passwordlog').value;
 
-    signInWithEmailAndPassword(auth, email, password).then(cred => {
-        messageDiv.textContent = "Usuario logueado correctamente";
-        messageDiv.style.color = "green"; // Establece el color del texto para el mensaje de éxito
-       
-        window.location.href = '/home.html';
-    }).catch(error => {
-        const errorCode = error.code;
-        let errorMessage = "";
+    signInWithEmailAndPassword(auth, email, password)
+        .then(cred => {
+            // Inicio de sesión exitoso
+            messageDiv.textContent = "Usuario logueado correctamente.";
+            messageDiv.style.color = "green"; // Estilo para éxito
+            messageDiv.style.display = "block"; // Asegúrate de que sea visible
 
-        if (errorCode === 'auth/invalid-email')
-            errorMessage = "El correo es invalido";
-        else if (errorCode === 'auth/user-disabled')
-            errorMessage = "El usuario ha sido deshabilitado";
-        else if (errorCode === 'auth/user-not-found')
-            errorMessage = "El usuario no existe";
-        else if (errorCode === 'auth/wrong-password')
-            errorMessage = "Contraseña incorrecta";
+            // Redirige al usuario
+            setTimeout(() => {
+                window.location.href = '/home.html';
+            }, 2000);
+        })
+        .catch(error => {
+            // Manejo de errores
+            const errorCode = error.code;
+            let errorMessage = "";
 
-        messageDiv.textContent = errorMessage;
-        messageDiv.style.color = "red"; // Establece el color del texto para los mensajes de error
-    });
+            switch (errorCode) {
+                case 'auth/invalid-email':
+                    errorMessage = "El correo es inválido.";
+                    break;
+                case 'auth/user-disabled':
+                    errorMessage = "El usuario ha sido deshabilitado.";
+                    break;
+                case 'auth/user-not-found':
+                    errorMessage = "El usuario no existe.";
+                    break;
+                case 'auth/wrong-password':
+                    errorMessage = "Contraseña incorrecta.";
+                    break;
+                default:
+                    errorMessage = "Correo o contraseña incorrecta, intentalo de nuevo ";
+            }
+
+            // Muestra el mensaje de error
+            messageDiv.textContent = errorMessage;
+            messageDiv.style.color = "red"; // Estilo para errores
+            messageDiv.style.display = "block";
+
+            console.error("Error en el login:", errorMessage); // También lo mostramos en la consola para depuración
+        });
 });
+
+
+
+
 
 
